@@ -6,10 +6,16 @@ const SearchBar = ({ onSearch }) => { // Expecting onSearch as a prop
   const [query, setQuery] = useState(''); // Local state for input
 
   const handleSearch = () => {
+    // Log search when triggered
+    // console.log("SearchBar handleSearch triggered with query:", query); 
     if (query) {
+      // console.log(query);
       onSearch(query); // Call the onSearch prop function
     }
   };
+
+  // Log when SearchBar renders
+  // console.log("SearchBar component rendered with query:", query); 
 
   return (
     <div className="search--bar__body">

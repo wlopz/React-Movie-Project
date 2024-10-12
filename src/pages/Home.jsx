@@ -8,10 +8,15 @@ const Home = () => {
   // Function to handle search queries from the SearchBar and navigate to the Query page
   const handleSearch = (query) => {
     if (query) {
+      // Log the query value
+      // console.log("Search initiated in Home component with query:", query); 
       // Redirect to the Query page (/search) with the query as a URL parameter
       navigate(`/search?q=${query}`);
     }
   };
+
+  // console.log("Home component rendered");
+  // Log when Home component is rendered
 
   return (
     <section id='landing'>

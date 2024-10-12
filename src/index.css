@@ -33,3 +33,9 @@
 .nav__link--anchor {
   display: flex;
 }
+
+.results__header {
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
+}
