@@ -5,14 +5,14 @@ const Nav = () => {
     <nav>
       <div className="nav__container">
         <div className="nav__logo--wrapper">
-          <a href=""><img src={logo} alt="" className="nav__logo" /></a>
+          <a href="/"><img src={logo} alt="" className="nav__logo" /></a>
         </div>
         <ul className="nav__links--wrapper">
           <li className="nav__link">
-            <a href="" className="nav__link--anchor">Home</a>
+            <a href="/" className="nav__link--anchor">Home</a>
           </li>
           <li className="nav__link">
-            <a href="" className="nav__link--anchor">Find your flix</a>
+            <a href="/search" className="nav__link--anchor">Find your flix</a>
           </li>
           <li className="nav__link">
             <a href="#" className="nav__link--anchor no-pointer contact__button">Contact Us</a>
