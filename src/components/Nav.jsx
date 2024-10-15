@@ -5,7 +5,7 @@ const Nav = () => {
     <nav>
       <div className="nav__container">
         <div className="nav__logo--wrapper">
-          <a href="/"><img src={logo} alt="" className="nav__logo" /></a>
+          <a href="/" className='nav__logo--a--link'><img src={logo} alt="" className="nav__logo" /></a>
         </div>
         <ul className="nav__links--wrapper">
           <li className="nav__link">

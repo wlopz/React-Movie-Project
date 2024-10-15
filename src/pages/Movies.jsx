@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useSearchParams, Link } from 'react-router-dom'; 
+import { useSearchParams } from 'react-router-dom'; 
 import SearchBar from '../components/ui/SearchBar';
 import Result from '../components/Result';
 import axios from 'axios';
@@ -40,11 +40,14 @@ const Query = () => {
 
   return (
     <>
-      {/* SearchBar is passed handleSearch to allow new searches from the Query page */}
-      <SearchBar onSearch={handleSearch} />
-
-      {/* Display the search results */}
-      <Result searchResults={searchResults} query={query} />
+      <header id="landing">
+        <SearchBar onSearch={handleSearch} /> 
+        {/* SearchBar is passed handleSearch to allow new searches from the Query page */}
+      </header>
+      <section>
+        {/* Display the search results */}
+        <Result searchResults={searchResults} query={query} />
+      </section>
     </>
   );
 };

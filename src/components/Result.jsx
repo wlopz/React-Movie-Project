@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const Result = ({ searchResults, query }) => {
   const navigate = useNavigate(); // Hook to navigate programmatically between routes
@@ -16,7 +17,7 @@ const Result = ({ searchResults, query }) => {
   const handleClick = (id) => {
     // Log when a movie is clicked
     // console.log("Movie clicked with IMDb ID:", id); 
-    navigate(`/movie/${id}`); // Navigate to the movie's info page using its IMDb ID
+    navigate(`/movie/${id}?q=${query}`); // Navigate to the movie's info page using its IMDb ID
   };
 
   // Filter movies based on year
@@ -41,32 +42,39 @@ const Result = ({ searchResults, query }) => {
     <div className="results__container">
       <div className="results__header">
         {/* Dropdown for selecting a sorting filter */}
-        <select  
-          id="filter" 
-          defaultValue="DEFAULT" 
-          // Call the filterMovies function when the dropdown selection changes
-          onChange={(event) => filterMovies(event.target.value)}
-        >
-          {/* Default disabled option prompting user to choose a sort type */}
-          <option value="DEFAULT" disabled>Sort</option>
-          {/* Sorting options */}
-          <option value="LOW_TO_HIGH">Year, Earliest to Latest</option>
-          <option value="HIGH_TO_LOW">Year, Latest to Earliest</option>
-        </select>
+        <div className="results__header--wrapper">
+          <FontAwesomeIcon icon="fa-solid fa-sort" className='results__header--icon' />
+          <select className='results__header--select' 
+            id="filter" 
+            defaultValue="DEFAULT" 
+            // Call the filterMovies function when the dropdown selection changes
+            onChange={(event) => filterMovies(event.target.value)}
+          >
+            {/* Default disabled option prompting user to choose a sort type */}
+            <option value="DEFAULT" disabled>Sort</option>
+            {/* Sorting options */}
+            <option value="LOW_TO_HIGH">Year, Earliest to Latest</option>
+            <option value="HIGH_TO_LOW">Year, Latest to Earliest</option>
+          </select>
+
+        </div>
         {/* Display the query if available */}
         {query && <h2>Results for "{query}":</h2>}
       </div>
-      <ul>
+      <ul className='results__lists'>
         {/* Check if there are any movies in the filter and display them */}
         {movieFilter.length > 0 ? (
           movieFilter.map((result, index) => (
             <li key={index} onClick={() => handleClick(result.imdbID)}>
               {/* Display the movie poster */}
-              <img src={result.Poster} alt={result.Title} style={{ width: '100px' }} />
-              <h3>{result.Title}</h3> {/* Display the movie title */}
-              <p>Year: {result.Year}</p> {/* Display the movie year */}
+              <div className="results__img--wrapper">
+                <img className='results__img' src={result.Poster} alt={result.Title} />
+              </div>
+              <h3 className='results__title'>{result.Title}</h3> {/* Display the movie title */}
+              <p className='results__year'>Year: {result.Year}</p> {/* Display the movie year */}
               {/* Link to the movie's IMDb page */}
-              <a target='_blank' href={`https://www.imdb.com/title/${result.imdbID}/`}>IMDB</a>
+              <a className='results__imdb--link' target='_blank' href={`https://www.imdb.com/title/${result.imdbID}/`}>IMDB</a>
+              {/* <FontAwesomeIcon icon="fa-brands fa-imdb" /> */}
             </li>
           ))
         ) : (

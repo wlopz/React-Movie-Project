@@ -19,10 +19,10 @@ const Home = () => {
   // Log when Home component is rendered
 
   return (
-    <section id='landing'>
+    <>
       {/* Pass the handleSearch function to the SearchBar component */}
       <SearchBar onSearch={handleSearch} />
-    </section>
+    </>
   );
 };
 
