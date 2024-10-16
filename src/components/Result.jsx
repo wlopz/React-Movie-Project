@@ -65,7 +65,7 @@ const Result = ({ searchResults, query }) => {
         {/* Check if there are any movies in the filter and display them */}
         {movieFilter.length > 0 ? (
           movieFilter.map((result, index) => (
-            <li key={index} onClick={() => handleClick(result.imdbID)}>
+            <li className='results__list' key={index} onClick={() => handleClick(result.imdbID)}>
               {/* Display the movie poster */}
               <div className="results__img--wrapper">
                 <img className='results__img' src={result.Poster} alt={result.Title} />
@@ -73,7 +73,7 @@ const Result = ({ searchResults, query }) => {
               <h3 className='results__title'>{result.Title}</h3> {/* Display the movie title */}
               <p className='results__year'>Year: {result.Year}</p> {/* Display the movie year */}
               {/* Link to the movie's IMDb page */}
-              <a className='results__imdb--link' target='_blank' href={`https://www.imdb.com/title/${result.imdbID}/`}>IMDB</a>
+              <a className='results__imdb--link' target='_blank'rel="noreferrer" href={`https://www.imdb.com/title/${result.imdbID}/`}>IMDB</a>
               {/* <FontAwesomeIcon icon="fa-brands fa-imdb" /> */}
             </li>
           ))

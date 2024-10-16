@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
+
 * {
   font-family: 'Lato', sans-serif;
   padding: 0;
@@ -13,6 +15,26 @@
   height: 55vh;
   padding: 8% 0;
   margin: -6% 0;
+}
+
+/* 
+
+HOME 
+
+*/
+
+.home__img-wrapper {
+  position: relative; /* Allows GSAP to apply transformations */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; /* Ensures sliding is clean */
+  margin-top: 3%;
+}
+
+.home__img {
+  width: 100%;
+  max-width: 500px;
 }
 
 /* 
@@ -87,6 +109,7 @@ NAV
   align-items: center;
   margin-top: 50px;
   background: transparent;
+  transition: all 0.5s ease; /* Smooth transition for sliding */
 }
 
 .flix__search--label {
@@ -137,6 +160,40 @@ NAV
   transform: scale(.94);
   transition: all 500ms ease;
 }
+
+/* 
+
+SKELETON 
+
+*/
+
+.skeleton__wrapper {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.skeleton__item {
+  width: 100%;
+  max-width: 350px;
+  height: 400px;
+  background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+  background-size: 400% 100%;
+  animation: skeleton-loading 1.5s infinite;
+  border-radius: 20px;
+  margin: 20px;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+
 
 /* RESULTS */
 
