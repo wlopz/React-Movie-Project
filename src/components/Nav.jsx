@@ -1,6 +1,7 @@
 import React from 'react'
 import logo from '../assets/flixstr_logo.png'
 import { Link } from 'react-router-dom'
+import { handleClick } from '../utils/errors'
 const Nav = () => {
   return (
     <nav>
@@ -25,7 +26,7 @@ const Nav = () => {
           {/* <li className="nav__link">
             <a href="/search" className="nav__link--anchor">Find your flix</a>
           </li> */}
-          <Link to="/" className="nav__link">
+          <Link to="/" className="nav__link" onClick={handleClick}>
             <span className="nav__link--anchor no-pointer contact__button">Contact Us</span>
           </Link>
           {/* <li className="nav__link">

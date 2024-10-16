@@ -179,11 +179,65 @@ SKELETON
   width: 100%;
   max-width: 350px;
   height: 400px;
-  background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #e0e0e0 75%);
+  background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #b8b8b8 75%);
   background-size: 400% 100%;
   animation: skeleton-loading 1.5s infinite;
   border-radius: 20px;
   margin: 20px;
+}
+
+
+.skeleton--info__container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 5%;
+}
+
+.skeleton--info__title {
+  width: 60%;
+  height: 40px;
+  background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #b8b8b8 75%);
+  background-size: 400% 100%;
+  animation: skeleton-loading 1.5s infinite;
+  border-radius: 8px;
+  margin-bottom: 20px;
+}
+
+.skeleton--info__wrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+}
+
+.skeleton--info__left-column {
+  width: 40%;
+}
+
+.skeleton--info__img {
+  width: 100%;
+  height: 300px;
+  background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #b8b8b8 75%);
+  background-size: 400% 100%;
+  animation: skeleton-loading 1.5s infinite;
+  border-radius: 12px;
+}
+
+.skeleton--info__right-column {
+  width: 55%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.skeleton--info__year {
+  width: 100%;
+  height: 25px;
+  background: linear-gradient(90deg, #e0e0e0 25%, #f0f0f0 50%, #b8b8b8 75%);
+  background-size: 400% 100%;
+  animation: skeleton-loading 1.5s infinite;
+  border-radius: 6px;
+  margin-bottom: 15px;
 }
 
 @keyframes skeleton-loading {
@@ -194,7 +248,6 @@ SKELETON
     background-position: 0 0;
   }
 }
-
 
 /* RESULTS */
 
@@ -208,7 +261,7 @@ SKELETON
   display: flex;
   flex-direction: row-reverse;
   justify-content: space-between;
-  padding: 5px 5px 5px 0px;
+  padding: 2% 5%;
 }
 
 .results__header--wrapper {
@@ -237,9 +290,9 @@ SKELETON
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  max-width: 1280px;
+  /* max-width: 1280px; */
   width: 100%;
-  margin-top: 5%;
+  margin-top: 2%;
 }
 
 .results__list {
@@ -324,11 +377,13 @@ SKELETON
   padding: 3% 10%;
 }
 
-.movie--info__left--column {
+.movie--info__left-column {
   width: 50%;
+  display: flex;
+  justify-content: flex-end;
 }
 
-.movie--info__right--column {
+.movie--info__right-column {
   width: 50%;
   padding: 2%;
 }
@@ -388,12 +443,29 @@ MEDIA QUERIES
     font-size: 16px;
   }
 
+  .movie--info__title {
+    font-size: 18px;
+    margin-top: 5%;
+  }
+
+  .movie--info__par {
+    font-size: 14px;
+  }
+
   .movie--info__wrapper {
+    flex-direction: column;
+  }
+
+  .movie--info__ratings {
     flex-direction: column;
   }
 }
 
 @media (max-width: 480px) {
+  #landing {
+    height: 33vh;
+  }
+
   .nav__links--wrapper {
     display: none;
   }
@@ -402,8 +474,13 @@ MEDIA QUERIES
     font-size: 16px;
   }
 
-  .flix__content-wrapper {
+  .results__header--title {
+    margin-bottom: 3%;
+  }
+
+  .results__header {
     flex-direction: column-reverse;
+    align-items: center;
   }
 
   .flix__search-results {

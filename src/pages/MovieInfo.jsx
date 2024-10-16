@@ -49,7 +49,23 @@ const MovieInfo = () => {
   // If the component is still loading data, display a loading message.
   if (loading) {
     // console.log('Loading movie details...'); // Log loading state
-    return <p>Loading movie details...</p>;
+    return (
+      <div className="skeleton--info__container">
+        <div className="skeleton--info__title"></div>
+        <div className="skeleton--info__wrapper">
+          <div className="skeleton--info__left-column">
+            <div className="skeleton--info__img"></div>
+          </div>
+          <div className="skeleton--info__right-column">
+            <div className="skeleton--info__year"></div>
+            <div className="skeleton--info__year"></div>
+            <div className="skeleton--info__year"></div>
+            <div className="skeleton--info__year"></div>
+            <div className="skeleton--info__year"></div>
+          </div>
+        </div>
+      </div>
+    )
   }
 
   // If there was an error during the API request, display the error message.
@@ -100,10 +116,10 @@ const MovieInfo = () => {
         {movie ? (
           <>
             {/* Display movie details fetched from the OMDB API */}
-            <div className="movie--info__left--column">
+            <div className="movie--info__left-column">
               <img src={movie.Poster} alt={movie.Title} className='movie--info__img' />
             </div>
-            <div className="movie--info__right--column">
+            <div className="movie--info__right-column">
               <p className='movie--info__par'><strong>Year:</strong> {movie.Year}</p>
               <p className='movie--info__par'><strong>Genre:</strong> {movie.Genre}</p>
               <p className='movie--info__par'><strong>Plot:</strong> {movie.Plot}</p>

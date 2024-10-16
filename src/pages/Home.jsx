@@ -105,12 +105,17 @@ const Home = () => {
     }
   };
 
+  // const breakTheWorld = () => {
+  //   throw new Error("Deliberate error to test Sentry integration");
+  // };
+
   return (
     <>
       {/* Render the SearchBar and attach the ref for animations */}
       <div ref={searchBarRef}>
         <SearchBar onSearch={handleSearch} />
       </div>
+      {/* <button onClick={breakTheWorld}>Break the world</button> */}
 
       {/* Render the Lottie animation and attach the ref for control and animations */}
       <div className="home__img-wrapper" ref={lottieWrapperRef}>
