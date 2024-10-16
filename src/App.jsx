@@ -15,7 +15,7 @@ function App() {
         <Nav />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/search" element={<Query />} /> {/* Ensure this route exists */}
+          <Route path="/search" element={<Query />} />
           <Route path="/movie/:id" element={<MovieInfo />} />
         </Routes>
       </div>

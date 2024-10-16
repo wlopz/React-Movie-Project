@@ -1,86 +1,123 @@
 import React, { useEffect, useState } from 'react';
-import { useParams, Link, useLocation } from 'react-router-dom'; // Hook to get URL parameters
+import { useParams, Link, useLocation } from 'react-router-dom';
 import axios from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const MovieInfo = () => {
-  const { id } = useParams(); // Get the movie ID from the URL
-  const location = useLocation(); // Get the current URL location, including the search query
-  const [movie, setMovie] = useState(null); // State to hold movie details
-  const [loading, setLoading] = useState(true); // State to handle loading
-  const [error, setError] = useState(null); // State to handle errors
+  // Get the `id` from the URL parameters using React Router's `useParams` hook.
+  const { id } = useParams(); 
+  
+  // Get the current URL location, including the search query from the URL, using `useLocation`.
+  const location = useLocation();
+  
+  // Create state variables to hold the movie details, loading status, and error state.
+  const [movie, setMovie] = useState(null); // `movie` holds the fetched movie details
+  const [loading, setLoading] = useState(true); // `loading` indicates if data is still being fetched
+  const [error, setError] = useState(null); // `error` holds any error messages if the API request fails
 
-  // Extract the search query from the location search params to have it ready to go back to the Query page
+  // Extract the search query from the URL's search parameters (e.g., `?q=searchTerm`) to pass it back to the search page.
   const searchQuery = new URLSearchParams(location.search).get('q');
 
-  // Fetch movie details when the component loads
+  // `useEffect` runs when the component mounts, and fetches movie details based on the `id`.
   useEffect(() => {
     const fetchMovieDetails = async () => {
       // Log the ID of the movie being fetched
-      // console.log("Fetching movie details for ID:", id); 
+      // console.log(`Fetching movie details for ID: ${id}`);
+      
+      // API call to fetch movie details using the movie `id` from OMDB API.
       try {
         const { data } = await axios.get(`https://www.omdbapi.com/?apikey=2ad0ce3b&i=${id}`);
-        // Log the movie details
-        // console.log("Movie details fetched:", data); 
-        setMovie(data); // Set movie details in state
-        setLoading(false); // Set loading to false after data is fetched
+        
+        // Log the fetched movie data for debugging
+        // console.log('Movie details fetched:', data);
+
+        setMovie(data); // Set the fetched movie data into state.
+        setLoading(false); // Stop the loading indicator after data is fetched.
       } catch (error) {
-        console.error('Error fetching movie details:', error);
-        setError('Failed to load movie details.');
-        setLoading(false);
+        console.error('Error fetching movie details:', error); // Log any error
+        setError('Failed to load movie details.'); // Set the error message to display
+        setLoading(false); // Stop loading on error
       }
     };
 
-    fetchMovieDetails();
-  }, [id]); // Only refetch when the `id` changes
+    fetchMovieDetails(); // Fetch movie details when the component mounts
+  }, [id]); // `useEffect` will re-run if the `id` changes
 
-  if (loading) return <p>Loading movie details...</p>; // Display a loading message
-  if (error) return <p>{error}</p>; // Display an error message if fetch failed
+  // Log when the component renders
+  // console.log('MovieInfo component rendered');
 
+  // If the component is still loading data, display a loading message.
+  if (loading) {
+    // console.log('Loading movie details...'); // Log loading state
+    return <p>Loading movie details...</p>;
+  }
+
+  // If there was an error during the API request, display the error message.
+  if (error) {
+    // console.log('Error occurred:', error); // Log the error message
+    return <p>{error}</p>;
+  }
+
+  // Function to render the movie's Metascore with color coding based on the score.
   const metascoreRating = () => {
+    // console.log('Rendering Metascore:', movie.Metascore); // Log Metascore rendering
     if (movie.Metascore >= 80) {
-      return (<p><strong>Metascore:</strong><span className='rating__green'> {movie.Metascore}</span></p>)
+      return (<p><strong>Metascore:</strong><span className='rating__green'> {movie.Metascore}</span></p>);
     } else if (movie.Metascore >= 40 && movie.Metascore < 80) {
-      return (<p><strong>Metascore:</strong><span className='rating__yellow'> {movie.Metascore}</span></p>)
+      return (<p><strong>Metascore:</strong><span className='rating__yellow'> {movie.Metascore}</span></p>);
     } else {
-      return (<p><strong>Metascore:</strong><span className='rating__red'> {movie.Metascore}</span></p>)
+      return (<p><strong>Metascore:</strong><span className='rating__red'> {movie.Metascore}</span></p>);
     }
-  }
+  };
 
+  // Function to render the IMDb rating with color coding based on the rating.
   const imdbRating = () => {
+    // console.log('Rendering IMDb Rating:', movie.imdbRating); // Log IMDb rating rendering
     if (movie.imdbRating >= 8.0) {
-      return (<p><strong>IMDB Rating:</strong><span className='rating__green'> {movie.imdbRating}</span></p>)
+      return (<p><strong>IMDB Rating:</strong><span className='rating__green'> {movie.imdbRating}</span></p>);
     } else if (movie.imdbRating >= 4.0 && movie.imdbRating < 8.0) {
-      return (<p><strong>IMDB Rating:</strong><span className='rating__yellow'> {movie.imdbRating}</span></p>)
+      return (<p><strong>IMDB Rating:</strong><span className='rating__yellow'> {movie.imdbRating}</span></p>);
     } else {
-      return (<p><strong>IMDB Rating:</strong><span className='rating__red'> {movie.imdbRating}</span></p>)
+      return (<p><strong>IMDB Rating:</strong><span className='rating__red'> {movie.imdbRating}</span></p>);
     }
-  }
-
-  // Log when MovieInfo renders with details
-  // console.log("MovieInfo component rendered with movie details:", movie); 
+  };
 
   return (
-    // Go back to search page with the current search query
+    // Main container for movie information display
     <div className="movie--info__container">
+      
+      {/* Link to go back to the search page, using the `searchQuery` from the URL parameters */}
       <Link to={`/search?q=${searchQuery}`} className='movie--info__link'>
-        <button className='movie--info__back'><FontAwesomeIcon className='movie--info__back--left' icon="fa-solid fa-chevron-left" /> Back</button> {/* Button to navigate back to search page */}
+        <button className='movie--info__back'>
+          <FontAwesomeIcon className='movie--info__back--left' icon="fa-solid fa-chevron-left" /> Back
+        </button>
       </Link>
+
+      {/* Display the movie title */}
+      <h1 className='movie--info__title'>{movie.Title}</h1>
+
       <div className="movie--info__wrapper">
         {movie ? (
           <>
-            <h1>{movie.Title}</h1>
-            <img src={movie.Poster} alt={movie.Title} className='movie--info__img' />
-            <p><strong>Year:</strong> {movie.Year}</p>
-            <p><strong>Genre:</strong> {movie.Genre}</p>
-            <p><strong>Plot:</strong> {movie.Plot}</p>
-            <p><strong>Director:</strong> {movie.Director}</p>
-            <p><strong>Actors:</strong> {movie.Actors}</p>
-            {metascoreRating()}
-            {imdbRating()}
+            {/* Display movie details fetched from the OMDB API */}
+            <div className="movie--info__left--column">
+              <img src={movie.Poster} alt={movie.Title} className='movie--info__img' />
+            </div>
+            <div className="movie--info__right--column">
+              <p className='movie--info__par'><strong>Year:</strong> {movie.Year}</p>
+              <p className='movie--info__par'><strong>Genre:</strong> {movie.Genre}</p>
+              <p className='movie--info__par'><strong>Plot:</strong> {movie.Plot}</p>
+              <p className='movie--info__par'><strong>Director:</strong> {movie.Director}</p>
+              <p className='movie--info__par'><strong>Actors:</strong> {movie.Actors}</p>
+              <div className="movie--info__ratings">
+                {/* Render the Metascore and IMDb ratings with conditional color coding */}
+                {metascoreRating()}
+                {imdbRating()}
+              </div>
+            </div>
           </>
         ) : (
-          <p>No movie details available.</p>
+          <p>No movie details available.</p> // Display if no movie data is available
         )}
       </div>
     </div>
