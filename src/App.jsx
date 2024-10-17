@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import Nav from './components/Nav';
 import Query from './pages/Movies';
 import MovieInfo from './pages/MovieInfo';
+import { Helmet } from 'react-helmet';
 
 function App() {
   // Log when App component is rendered
@@ -11,6 +12,9 @@ function App() {
 
   return (
     <Router>
+      <Helmet>
+        <title>Flixster - Find your next favorite movie!</title>
+      </Helmet>
       <div className="App">
         <Nav />
         <Routes>
