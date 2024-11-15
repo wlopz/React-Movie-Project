@@ -28,24 +28,22 @@ const Query = () => {
 
   // useEffect hook runs when the component mounts or when searchParams change (i.e., when a new search is initiated)
   useEffect(() => {
-    // Get the query parameter ('q') from the URL
     const queryParam = searchParams.get('q');
-    
-    // Log when a new query parameter is retrieved
-    // console.log("Query parameter from URL:", queryParam);
-
+  
+    // Trigger a new search if the query parameter has changed or is re-entered
     if (queryParam) {
       setQuery(queryParam); // Update the query state with the parameter from the URL
       handleSearch(queryParam); // Perform the search using the query
     }
-
+  
     // Slide-in animation for the SearchBar using GSAP
     gsap.fromTo(
-      searchBarRef.current, // Target the SearchBar element
-      { y: '-100%', opacity: 0 }, // Start above the viewport and invisible
-      { y: '0%', opacity: 1, duration: 1, ease: 'power2.out' } // Slide into view and fade in
+      searchBarRef.current,
+      { y: '-100%', opacity: 0 },
+      { y: '0%', opacity: 1, duration: 1, ease: 'power2.out' }
     );
   }, [searchParams]); // Dependency array ensures the effect runs whenever searchParams change
+  
 
   // Function to perform the search by calling the OMDB API
   const handleSearch = async (searchQuery) => {
@@ -81,9 +79,14 @@ const Query = () => {
   const handleNewSearch = (newQuery) => {
     // Log the new search query before navigating
     // console.log("New search initiated with query:", newQuery);
-
-    // Programmatically navigate to a new search URL with the updated query parameter
-    navigate(`/search?q=${newQuery}`);
+    
+    // If the new query is the same as the current query, call handleSearch directly
+    if (newQuery === query) {
+      handleSearch(newQuery); // Trigger a search even if the query hasn't changed
+    } else {
+      // Otherwise, navigate to the new search URL, which will trigger the search via useEffect
+      navigate(`/search?q=${newQuery}`);
+    }
   };
 
   return (
@@ -91,7 +94,7 @@ const Query = () => {
       <header id="landing">
         {/* Attach ref to the SearchBar for GSAP animation */}
         <div ref={searchBarRef}>
-          <SearchBar onSearch={handleNewSearch} /> 
+          <SearchBar key={query} onSearch={handleNewSearch} /> 
         </div>
       </header>
       
